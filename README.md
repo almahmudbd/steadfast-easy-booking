@@ -2,7 +2,7 @@
 
 আমাদের মেসেজে আসা অর্ডার Steadfast এ বুক দিতে হলে প্রতিটা ফিল্ড আলাদাভাবে কপি-পেস্ট করে বুক দেয়া লাগে। এটাকে সহজ, দ্রুত এবং ঝামেলামুক্ত করার জন্য এই টুলটি তৈরি করা হয়েছে। এটি দুটি ভ্যারিয়েন্টে উপলব্ধ: প্লাগিন এবং পাবলিক টুল।
 
-![Static Badge](https://img.shields.io/badge/visit-website-blue?style=for-the-badge&link=https%3A%2F%2Fsukkars.github.io%2Fsteadfast)  ||  ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/almahmudbd/steadfast-easy-booking/latest/total)
+[![Static Badge](https://img.shields.io/badge/visit-website-blue?style=for-the-badge&link=https%3A%2F%2Fsukkars.github.io%2Fsteadfast)](https://sukkars.github.io/steadfast)  ||  [![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/almahmudbd/steadfast-easy-booking/latest/total)](https://github.com/almahmudbd/steadfast-easy-booking/releases/latest)
  
 ---
 
@@ -26,7 +26,7 @@ WordPress অ্যাডমিন প্যানেল থেকেই সর�
 
 ### ইনস্টলেশন
 
-1. রিপোজিটরিতে থাকা ZIP ফাইল ডাউনলোড করুন। ([link](https://github.com/almahmudbd/steadfast-easy-booking/releases/))
+1. রিপোজিটরিতে থাকা ZIP ফাইল ডাউনলোড করুন। ([link](https://github.com/almahmudbd/steadfast-easy-booking/releases/latest))
 2. ভেতরের steadfast-booking-plugin.php ফাইল এডিট করে আপনার api key + secret বসিয়ে দিন। (চাইলে এটা পরেও করা যায়)
 3. WordPress → Plugins → Add New → Upload Plugin → ZIP আপলোড করুন। প্লাগিনটি একটিভ করুন।
 4. আগে এপিআই না দিলে এখন Plugin File Editor > Steadfast Booking Tool থেকে দিতে হবে, ([get api key](https://steadfast.com.bd/user/api))
