@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Steadfast Booking Tool
  * Description: Securely book Steadfast orders directly from the WordPress admin.
- * Version: 1.7
+ * Version: 1.7.2
  * Author: almahmud
  * Author URI: https://thealmahmud.blogspot.com/
  */
@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // 0. API KEY & SECRET CONFIGURATION (REQUIRED)
 // -----------------------------------------------------------------
 // IMPORTANT: Replace these dummy values with your actual Steadfast API credentials.
-define('STEADFAST_API_KEY', 'l14567jg3vuvlivcfuedsmhu6ghuwn2d');
-define('STEADFAST_SECRET_KEY', 'no46464fgifekz0gqmmd5evab');
+define('STEADFAST_API_KEY', 'keyl14567jg3vuvlivcfuedsmhugdevcxgers6ghuwn2d');
+define('STEADFAST_SECRET_KEY', 'secret56754464fgifekz0gvnvmvd5evab');
 
 // -----------------------------------------------------------------
 // 1. ADMIN MENU AND ACCESS CONTROL
@@ -38,7 +38,7 @@ add_action( 'admin_menu', 'steadfast_booking_admin_menu' );
 // Enqueue Poppins font for this page
 function steadfast_booking_admin_enqueue_styles( $hook ) {
     if ( isset($_GET['page']) && $_GET['page'] === 'steadfast-booking-app' ) {
-        wp_enqueue_style( 'steadfast-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap', array(), '1.0' );
+        wp_enqueue_style( 'steadfast-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap', array(), '1.0' );
     }
 }
 add_action( 'admin_enqueue_scripts', 'steadfast_booking_admin_enqueue_styles' );
@@ -73,8 +73,8 @@ function steadfast_booking_admin_page_content() {
             .compact-note { font-size: 12px; color: #6b7280; margin-bottom: 8px; }
 
             /* Response area */
-            .response-container { margin-top: 10px; padding: 12px; background: #e9ecef; border: 1px solid #e6eef6; border-radius: 6px; font-size: 13px; }
-            #response h6 { font-size: 20px; line-height: 24px; font-weight: 600; color: var(--txt-neutral-900); display:flex; align-items:left; justify-content:space-between; margin:8px 0; }
+            .response-container { margin-top: 10px; padding: 12px; background: #f5f5f5; border: 1px solid #e6eef6; border-radius: 6px; font-size: 13px; }
+            #response h6 { font-size: 20px; line-height: 24p x; font-weight: 600; color:#000; display:flex; align-items:left; justify-content:space-between; margin:8px 0; }
             .copy-btn { padding:6px 10px; font-size:12px; border-radius:6px; background:#0ea5e9; color:#fff; border:none; cursor:pointer; flex-shrink:0; }
             .error { color: #dc2626; font-weight:600; }
             .success { color: #059669; font-weight:600; }
@@ -156,7 +156,7 @@ Phone or Address
                 <div id="response" class="response-container">এখানে API থেকে আসা রেসপন্স দেখা যাবে...</div>
             </div>
 
-            <p class="muted">Tool version: 1.7</p>
+            <p class="muted">Tool version: 1.7.2</p>
         </div>
     </div>
 
