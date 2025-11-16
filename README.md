@@ -53,7 +53,7 @@ WordPress অ্যাডমিন প্যানেল থেকেই সর�
 
 © SukkarShop.com
 
-GitHub: [https://github.com/sukkars](https://github.com/sukkars)
+GitHub: [https://github.com/almahmudbd/steadfast-easy-booking/)
 
 যে কোনো সাজেশন বা নতুন ফিচার যুক্ত করতে চাইলে জানান।
 
