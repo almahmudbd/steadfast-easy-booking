@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Steadfast Booking Tool
  * Description: Securely book Steadfast orders directly from the WordPress admin.
- * Version: 1.7.2
+ * Version: 1.73
  * Author: almahmud
  * Author URI: https://thealmahmud.blogspot.com/
  */
@@ -30,7 +30,7 @@ function steadfast_booking_admin_menu() {
         'steadfast-booking-app',
         'steadfast_booking_admin_page_content',
         'dashicons-cart',
-        60
+        777
     );
 }
 add_action( 'admin_menu', 'steadfast_booking_admin_menu' );
@@ -141,7 +141,7 @@ Phone or Address
 
                         <div>
                             <label for="note">নোট (ঐচ্ছিক):</label>
-                            <input type="text" id="note">
+						<textarea id="note" style="field-sizing:content;min-height: 2rem;"></textarea>
                         </div>
 
                         <div class="full" style="display:flex; justify-content:flex-end;">
@@ -155,8 +155,9 @@ Phone or Address
                 <h2>৩. API রেসপন্স</h2>
                 <div id="response" class="response-container">এখানে API থেকে আসা রেসপন্স দেখা যাবে...</div>
             </div>
-
-            <p class="muted">Tool version: 1.7.2</p>
+			
+			<br/>
+            <p class="muted">Steadfast Easy Booking Tool v1.73 | Powered by sukkarshop.com</p>
         </div>
     </div>
 
