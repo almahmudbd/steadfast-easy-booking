@@ -2,7 +2,7 @@
 
 আমাদের মেসেজে আসা অর্ডার Steadfast এ বুক দিতে হলে প্রতিটা ফিল্ড আলাদাভাবে কপি-পেস্ট করে বুক দেয়া লাগে। এটাকে সহজ, দ্রুত এবং ঝামেলামুক্ত করার জন্য এই টুলটি তৈরি করা হয়েছে। এটি দুটি ভ্যারিয়েন্টে উপলব্ধ: প্লাগিন এবং পাবলিক টুল।
 
-[![Static Badge](https://img.shields.io/badge/visit-website-blue?style=for-the-badge&link=https%3A%2F%2Fsukkars.github.io%2Fsteadfast)](https://sukkars.github.io/steadfast)  |  [![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/almahmudbd/steadfast-easy-booking/latest/total)](https://github.com/almahmudbd/steadfast-easy-booking/releases/latest)
+[![Static Badge](https://img.shields.io/badge/visit-website-blue?style=for-the-badge&link=https%3A%2F%2Fsukkars.github.io%2Fsteadfast)](https://sukkars.github.io/steadfast)  |  [![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/almahmudbd/steadfast-easy-booking/latest/total)](https://github.com/almahmudbd/steadfast-easy-booking/releases/latest)
  
 ---
 
