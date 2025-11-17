@@ -24,7 +24,7 @@
 
 যারা WordPress ব্যবহার করেন না — তাদের জন্য একটি অনলাইন ভার্সন।
 
-🔗 লিংক: **[https://sukkars.github.io/steadfast](https://sukkars.github.io/steadfast)** 
+🔗 লিংক: [**https://sukkars.github.io/steadfast**](https://sukkars.github.io/steadfast) -
  🔗 html ফাইল: ([download here](https://github.com/almahmudbd/steadfast-easy-booking/releases/latest))  
 
 ### বৈশিষ্ট্য
