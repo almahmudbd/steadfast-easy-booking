@@ -14,8 +14,11 @@
     h2{font-size:15px;margin:0 0 8px;color:#374151}
 
     label{display:block;font-size:14px;margin-bottom:6px;color:#374151}
-    input,textarea,select{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box}
-    textarea{min-height:76px;resize:vertical}
+	
+    input,textarea,select{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;box-sizing:border-box;
+    line-height: 2;min-height: 20px;}
+    
+	textarea{min-height:76px;resize:vertical}
 
     .row{display:flex;gap:8px}
     .col{flex:1}
@@ -98,20 +101,15 @@ Address Example, Dhaka. (ঠিকানা)
         <p id="parseErr" class="small-note" style="color:var(--danger);display:none">মেসেজ প্যাটার্ন ভুল।</p>
 
         <div class="grid">
-          <div class="full">
-            <label for="invoice">ইনভয়েস (অটো)</label>
+          <div>
+            <label for="invoice">ইনভয়েস (Auto)</label>
             <input id="invoice" type="text" readonly>
           </div>
-
-          <div>
-            <label for="phone">ক্রেতার ফোন</label>
-            <input id="phone" type="text">
-          </div>
-          
+		  		  
           <div>
             <label for="delivery">ডেলিভারি ধরন</label>
-            <select id="delivery"><option value="0">1. হোম ডেলিভারি</option><option value="1">2. পয়েন্ট পিকআপ</option></select>
-          </div>
+            <select id="delivery"><option value="0">0. হোম ডেলিভারি</option><option value="1">1. পয়েন্ট পিকআপ</option></select>
+          </div>          
 
           <div class="full">
             <label for="name">ক্রেতার নাম</label>
@@ -124,6 +122,11 @@ Address Example, Dhaka. (ঠিকানা)
           </div>
 
           <div>
+            <label for="phone">ক্রেতার ফোন</label>
+            <input id="phone" type="text">
+          </div>
+
+          <div>
             <label for="cod">COD টাকার পরিমাণ</label>
             <input id="cod" type="number" min="0">
           </div>
@@ -133,9 +136,9 @@ Address Example, Dhaka. (ঠিকানা)
             <input id="item" type="text">
           </div>
 
-          <div class="full">
+          <div>
             <label for="note">নোট (optional)</label>
-            <input id="note" type="text">
+            <textarea id="note" style="field-sizing:content;min-height: 2rem;"></textarea>
           </div>
 
           <div class="full" style="display:flex;justify-content:flex-end">
@@ -150,7 +153,7 @@ Address Example, Dhaka. (ঠিকানা)
     </section>
 
     <footer>
-      <div class="muted">Steadfast Easy Booking Tool  |  Powered by sukkarshop.com</div>
+      <div class="muted">Steadfast Easy Booking Tool v1.72  |  Powered by sukkarshop.com</div>
     </footer>
   </div>
 
