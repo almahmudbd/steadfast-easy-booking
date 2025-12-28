@@ -71,7 +71,7 @@
           <button id="saveKeyBtn" class="btn btn-primary small-btn">সেভ</button>
           <button id="clearKeyBtn" class="btn btn-secondary small-btn">মুছে ফেলুন</button>
         </div>
-        <div class="small-note">⚠️  সতর্কতা: নিরাপত্তা বিবেচনায় কীগুলি আপনার ব্রাউজারের লোকাল স্টোরেজে সেভ করা হচ্ছে। আমরা আপনার কোনো ডেটা সার্ভারে সেভ করে রাখি না।</div>
+        <div class="small-note">⚠️  সতর্কতা: নিরাপত্তা বিবেচনায় কীগুলি লোকাল স্টোরেজে সেভ করা হচ্ছে।</div>
       </div>
     </section><br/>
 
@@ -143,7 +143,9 @@
   
   
     <footer>
-      <div class="muted">Steadfast Easy Booking Tool v1.73  |  Powered by sukkarshop.com</div>
+     <div class="muted">
+	 <p class="copyright">Disclaimer: This is not an official Steadfast project.</p>
+	 Steadfast Easy Booking Tool v2.1  |  Powered by sukkarshop.com</div>
     </footer>
 	<br/>
   </div>
@@ -344,14 +346,5 @@
 
     setKeysVisible(!!(localStorage.getItem(LS_KEY) && localStorage.getItem(LS_SECRET)));
   </script>
-   <!-- Footer -->
-    <footer class="text-center text-gray-500 text-sm mt-8">
-                <!-- Footer -->
-            <div class="footer-links">
-                <a href="https://sukkarshop.com" class="footer-link">🏚️ Main Site</a> | <a href="https://facebook.com/sukkar.shop" class="footer-link"> Contact </a> | <a href="https://sukkarshop.com/contact/" class="footer-link"> About </a>
-            </div>
-            <p class="copyright">Disclaimer: This is not an official Steadfast project.</p>
-    </footer>
-  <br/>
 </body>
 </html>
