@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Steadfast Bulk Booking Tool - Fixed</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap');
+    body { font-family: 'Hind Siliguri', sans-serif; background-color: #f8fafc; }
+    .status-badge { font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header class="bg-white border-b sticky top-0 z-50 px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-blue-600 p-2 rounded-lg text-white"><i class="fas fa-shipping-fast text-xl"></i></div>
+        <h1 class="text-xl font-bold text-gray-800">Steadfast Bulk V1.4</h1>
+      </div>
+      <button onclick="openSettings()" class="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+        <i class="fas fa-cog text-xl"></i>
+      </button>
+  </header>
+
+  <main class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
+    <!-- API Status Indicator -->
+    <div id="apiStatus" class="mb-6 p-3 rounded-xl flex justify-between items-center bg-gray-100 border text-gray-500 transition-all">
+        <span id="statusText" class="text-xs font-bold uppercase tracking-wider">Checking API Keys...</span>
+        <span id="statusDot" class="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+    </div>
+
+    <div class="bg-white border rounded-xl shadow-sm p-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2">
+            <label class="block text-sm font-bold text-gray-700 mb-2">বাল্ক ডেটা ইনপুট (--- দিয়ে আলাদা করুন)</label>
+            <textarea id="bulkInput" 
+                class="w-full h-56 p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-gray-700 bg-gray-50 font-mono text-sm"
+                placeholder="নাম&#10;ঠিকানা&#10;আইটেম ১&#10;০১৭XXXXXXXX&#10;৫০০&#10;---"></textarea>
+        </div>
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-2">ডিফল্ট নোট (Optional)</label>
+            <textarea id="defaultNote" class="w-full h-24 p-3 border rounded-xl text-sm bg-blue-50/30 mb-4" placeholder="যেমন: ডেলিভারি চেক করে নিবেন..."></textarea>
+            
+            <div class="space-y-3">
+                <button onclick="processData()" class="w-full bg-gray-800 hover:bg-black text-white font-bold py-3 rounded-xl transition-all">
+                   প্রসেস করুন
+                </button>
+                <button id="startBookingBtn" disabled onclick="startBulkBooking()" class="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-bold py-3 rounded-xl transition-all">
+                  বুকিং শুরু করুন
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tableWrapper" class="hidden bg-white border rounded-xl shadow-sm overflow-hidden mb-8">
+      <table class="w-full text-left">
+        <thead class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
+          <tr>
+            <th class="px-6 py-4">Action</th>
+            <th class="px-6 py-4">Customer</th>
+            <th class="px-6 py-4">Address</th>
+            <th class="px-6 py-4 text-center">COD</th>
+            <th class="px-6 py-4 text-right">Status</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody" class="divide-y divide-gray-100"></tbody>
+      </table>
+    </div>
+
+    <div id="summaryContainer" class="hidden bg-white border border-blue-200 rounded-xl shadow-sm p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-blue-900">বুকিং সামারি (কপি করার জন্য)</h3>
+        <button onclick="copySummary()" class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-700">কপি করুন</button>
+      </div>
+      <textarea id="summaryOutput" readonly class="w-full h-64 p-4 border rounded-xl text-sm bg-gray-50 font-mono"></textarea>
+    </div>
+  </main>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[100] p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden">
+      <div class="p-5 border-b flex justify-between items-center bg-gray-50">
+        <h3 class="font-bold uppercase text-xs tracking-widest text-gray-500">API Credentials</h3>
+        <button onclick="closeSettings()"><i class="fas fa-times text-gray-400"></i></button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-400 mb-1">STEADFAST API KEY</label>
+          <input type="text" id="apiKeyInput" class="w-full p-3 border rounded-xl text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-400 mb-1">STEADFAST SECRET KEY</label>
+          <input type="password" id="secretKeyInput" class="w-full p-3 border rounded-xl text-sm">
+        </div>
+        <button onclick="saveSettings()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-all">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let orders = [];
+
+    const openSettings = () => document.getElementById('settingsModal').classList.replace('hidden', 'flex');
+    const closeSettings = () => document.getElementById('settingsModal').classList.replace('flex', 'hidden');
+
+    function checkAuth() {
+        const k = localStorage.getItem('sf_api_key');
+        const s = localStorage.getItem('sf_secret_key');
+        const bar = document.getElementById('apiStatus');
+        const txt = document.getElementById('statusText');
+        const dot = document.getElementById('statusDot');
+
+        if(k && s && k.length > 5) {
+            bar.className = "mb-6 p-3 rounded-xl flex justify-between items-center bg-emerald-50 border-emerald-100 text-emerald-700";
+            txt.innerText = "API Keys: ACTIVE";
+            dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+            document.getElementById('apiKeyInput').value = k;
+            document.getElementById('secretKeyInput').value = s;
+        } else {
+            bar.className = "mb-6 p-3 rounded-xl flex justify-between items-center bg-red-50 border-red-100 text-red-600";
+            txt.innerText = "API Keys: REQUIRED";
+            dot.className = "w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse";
+        }
+    }
+
+    function saveSettings() {
+        localStorage.setItem('sf_api_key', document.getElementById('apiKeyInput').value.trim());
+        localStorage.setItem('sf_secret_key', document.getElementById('secretKeyInput').value.trim());
+        checkAuth();
+        closeSettings();
+    }
+
+    function bnToEn(s) { return s.replace(/[০-৯]/g, d => "০১২৩৪৫৬৭৮৯".indexOf(d)); }
+
+    function processData() {
+        const input = document.getElementById('bulkInput').value;
+        const defNote = document.getElementById('defaultNote').value.trim();
+        const blocks = input.split('---').filter(b => b.trim() !== "");
+        orders = [];
+        
+        blocks.forEach(block => {
+            const lines = block.trim().split('\n').map(l => l.trim()).filter(Boolean);
+            if(lines.length < 2) return;
+
+            let phone = "";
+            lines.forEach(l => {
+                const n = bnToEn(l).replace(/\D/g, "");
+                if(/^01[3-9]\d{8}$/.test(n)) phone = n;
+            });
+
+            const name = lines[0];
+            const address = lines[1] || "";
+            const cod = bnToEn(lines[lines.length-1]).replace(/\D/g, "") || "0";
+            
+            let items = lines.slice(2, -1).join(', ');
+
+            orders.push({ name, phone, address, items, note: defNote, cod, status: 'ready', cid: null, error: '' });
+        });
+        renderTable();
+    }
+
+    function renderTable() {
+        const body = document.getElementById('tableBody');
+        const wrap = document.getElementById('tableWrapper');
+        const btn = document.getElementById('startBookingBtn');
+        if(orders.length === 0) { wrap.classList.add('hidden'); btn.disabled = true; return; }
+
+        wrap.classList.remove('hidden');
+        btn.disabled = false;
+        body.innerHTML = orders.map((o, i) => `
+            <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-6 py-4"><button onclick="deleteOrder(${i})" class="text-red-400 hover:text-red-600"><i class="fas fa-trash-alt"></i></button></td>
+                <td class="px-6 py-4">
+                    <div class="font-bold text-sm text-gray-800">${o.name}</div>
+                    <div class="text-[10px] text-blue-500 font-bold">${o.phone}</div>
+                </td>
+                <td class="px-6 py-4 text-xs text-gray-500 truncate max-w-[200px]">${o.address}</td>
+                <td class="px-6 py-4 text-center font-bold text-gray-700">${o.cod}</td>
+                <td class="px-6 py-4 text-right" id="status-${i}">
+                    ${o.cid ? 
+                        `<span class="status-badge bg-emerald-100 text-emerald-700">SUCCESS: ${o.cid}</span>` : 
+                        (o.error ? `<span class="status-badge bg-red-100 text-red-700" title="${o.error}">FAILED</span>` : '<span class="status-badge bg-gray-100 text-gray-400">READY</span>')
+                    }
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function deleteOrder(i) { orders.splice(i, 1); renderTable(); }
+
+    async function startBulkBooking() {
+        const apiKey = localStorage.getItem('sf_api_key');
+        const secretKey = localStorage.getItem('sf_secret_key');
+        if(!apiKey || !secretKey) { openSettings(); return; }
+
+        const btn = document.getElementById('startBookingBtn');
+        btn.disabled = true;
+        btn.innerText = "Processing Orders...";
+
+        let summary = "";
+
+        for(let i=0; i<orders.length; i++) {
+            if(orders[i].cid) continue;
+            
+            const st = document.getElementById(`status-${i}`);
+            st.innerHTML = `<span class="status-badge bg-blue-100 text-blue-600 animate-pulse">Wait...</span>`;
+
+            try {
+                // Using a more reliable CORS proxy
+                const proxyUrl = "https://api.allorigins.win/raw?url=";
+                const apiUrl = "https://portal.packzy.com/api/v1/create_order";
+                
+                const payload = {
+                    invoice: 'INV-' + Date.now() + i,
+                    recipient_name: orders[i].name,
+                    recipient_phone: orders[i].phone,
+                    recipient_address: orders[i].address,
+                    cod_amount: parseInt(orders[i].cod) || 0,
+                    note: orders[i].note || "Bulk Tool Order"
+                };
+
+                const response = await fetch(proxyUrl + encodeURIComponent(apiUrl), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Api-Key': apiKey,
+                        'Secret-Key': secretKey
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error('HTTP Error: ' + response.status);
+
+                const data = await response.json();
+
+                if (data && data.status === 200 && data.order) {
+                    orders[i].cid = data.order.consignment_id;
+                    st.innerHTML = `<span class="status-badge bg-emerald-500 text-white">SUCCESS</span>`;
+                    summary += `${orders[i].name} -> #${orders[i].cid}\n`;
+                } else {
+                    const errorMsg = data.errors ? JSON.stringify(data.errors) : (data.message || "Unknown API Error");
+                    orders[i].error = errorMsg;
+                    st.innerHTML = `<span class="status-badge bg-red-500 text-white" title="${errorMsg}">API ERR</span>`;
+                }
+            } catch (err) {
+                console.error(err);
+                st.innerHTML = `<span class="status-badge bg-amber-500 text-white">PROXY ERR</span>`;
+            }
+            await new Promise(r => setTimeout(r, 800)); // Delay to prevent rate limiting
+        }
+
+        if(summary) {
+            document.getElementById('summaryContainer').classList.remove('hidden');
+            document.getElementById('summaryOutput').value = summary.trim();
+        }
+        btn.disabled = false;
+        btn.innerText = "বুকিং সম্পন্ন";
+    }
+
+    function copySummary() {
+        const el = document.getElementById('summaryOutput');
+        el.select();
+        document.execCommand('copy');
+    }
+
+    window.onload = checkAuth;
+  </script>
+</body>
+</html>
