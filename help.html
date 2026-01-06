@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ব্যবহার নির্দেশিকা - Steadfast Tool</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f6f7f8; --card:#fff; --muted:#6b7280; --accent:#10b981; --border:#e6eef6; --text:#1f2937; }
+    body{margin:0;padding:20px;background:var(--bg);font-family: 'Poppins', system-ui, sans-serif;color:var(--text); line-height: 1.6;}
+    .wrap{max-width:800px;margin:0 auto;background:var(--card);padding:30px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04);}
+    h1{font-size:24px; color:var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 30px;}
+    h2{font-size:20px; color:#1f2937; margin-top: 40px; display: flex; align-items: center; gap: 10px;}
+    h2 svg{width: 24px; height: 24px; color: var(--accent);}
+    .step-box{background: #f9fafb; border-left: 4px solid var(--accent); padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;}
+    .step-num{font-weight: bold; color: var(--accent); margin-right: 5px;}
+    code{background: #eee; padding: 2px 5px; border-radius: 4px; font-family: monospace;}
+    .example-box{background: #fff; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #475569;}
+    .tip{background: #fffbeb; border: 1px solid #fef3c7; padding: 15px; border-radius: 8px; margin-top: 20px;}
+    .nav-btns{margin-bottom: 20px; display: flex; gap: 10px;}
+    .btn{text-decoration: none; padding: 8px 15px; background: #fff; border: 1px solid #d1d5db; border-radius: 6px; color: #374151; font-size: 14px; font-weight: 600;}
+    .btn:hover{background: #f3f4f6;}
+    footer{text-align: center; margin-top: 40px; color: var(--muted); font-size: 13px;}
+    ul{padding-left: 20px;}
+    li{margin-bottom: 8px;}
+    .format-card {background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 15px;}
+    .format-card b {color: #0f172a;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav-btns">
+      <a href="index.html" class="btn">🏠 সিঙ্গেল এন্ট্রি</a>
+      <a href="bulk.html" class="btn">📦 বাল্ক এন্ট্রি</a>
+    </div>
+
+    <h1>ব্যবহার নির্দেশিকা (How to Use)</h1>
+
+    <p>Steadfast Easy Booking Tool ব্যবহার করে আপনি খুব দ্রুত এবং সহজে আপনার পার্সেল বুকিং করতে পারবেন। নিচে সঠিক ফরম্যাট এবং ব্যবহারের নিয়মগুলো দেওয়া হলো:</p>
+
+    <!-- Formatting Guide Section -->
+    <div class="format-card">
+      <h3 style="margin-top:0; color:#0f172a;">📝 সঠিক মেসেজ ফরম্যাট (সিরিয়াল খেয়াল করুন)</h3>
+      <p>টুলটি সঠিকভাবে ডেটা রিড করার জন্য মেসেজটি নিচের সিরিয়ালে লেখার চেষ্টা করুন:</p>
+      <div class="example-box">
+        ১ম লাইন: কাস্টমারের নাম<br>
+        ২য় লাইন: বিস্তারিত ঠিকানা (থানা ও জেলাসহ)<br>
+        ৩য় লাইন: কাস্টমারের ফোন নম্বর<br>
+        ৪র্থ লাইন: COD টাকার পরিমাণ (যেমন: 500)
+      </div>
+      <p><small><i><b>*বি:দ্র:</b> সিঙ্গেল এন্ট্রির ক্ষেত্রে সিরিয়াল একটু ওলটপালট হলেও সমস্যা নেই, তবে বাল্ক এন্ট্রিতে অবশ্যই এই সিরিয়াল ফলো করতে হবে। ঠিকানা কয়েক লাইনে থাকলে এক লাইনে নিতে হবে। এবং ফোন নম্বরটি অবশ্যই ১১ ডিজিটের হতে হবে।</i></small></p>
+    </div>
+
+    <!-- Section 1: Single Entry -->
+    <h2>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+      সিঙ্গেল এন্ট্রি টুল (Single Entry)
+    </h2>
+    
+    <div class="step-box">
+      <span class="step-num">ধাপ ১:</span> সেটিংস থেকে <code>API Key</code> সেটআপ করুন।
+    </div>
+    <div class="step-box">
+      <span class="step-num">ধাপ ২:</span> উপরের ফরম্যাট অনুযায়ী মেসেজটি বড় বক্সে পেস্ট করুন।
+    </div>
+    <div class="step-box">
+      <span class="step-num">ধাপ ৩:</span> <code>মেসেজ প্রসেস করুন</code> বাটনে ক্লিক করুন। এটি করার সাথে সাথে নিচের ফরমের ঘরগুলো অটোমেটিক পূরণ হয়ে যাবে।
+    </div>
+    <div class="step-box">
+      <span class="step-num">ধাপ ৪:</span> তথ্যগুলো একবার চেক করে <code>বুকিং কনফার্ম</code> বাটনে ক্লিক করুন। বুকিং হয়ে গেলে নিচে Parcel ID দেখতে পাবেন। এছাড়াও raw response থেকে কি কি তথ্য এন্ট্রি হয়েছে বিস্তারিত দেখা যাবে।
+    </div>
+
+    <!-- Section 2: Bulk Entry -->
+    <h2>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+      বাল্ক এন্ট্রি টুল (Bulk Entry)
+    </h2>
+
+    <div class="step-box">
+      <span class="step-num">ধাপ ১:</span> বাল্ক এন্ট্রি পেজে গিয়ে একই ফরম্যাটে অনেকগুলো মেসেজ লিখুন।
+    </div>
+    <div class="step-box">
+      <span class="step-num">ধাপ ২:</span> প্রতিটি আলাদা কাস্টমারের তথ্যের মাঝে <code>---</code> (তিনটি ড্যাশ) ব্যবহার করুন।
+    </div>
+    <div class="example-box">
+      যায়েদ<br>রোড-১, মিরপুর-১০, ঢাকা<br>01700000000<br>500<br>
+      ---<br>
+      আব্দুর রহিম<br>নিউমার্কেট, যশোর<br>01800000000<br>1000
+    </div>
+    <div class="step-box">
+      <span class="step-num">ধাপ ৩:</span> <code>ডেটা এক্সট্র্যাক্ট করুন</code> বাটনে চাপ দিলে সবগুলো অর্ডার তালিকায় চলে আসবে। এরপর সব পার্সেলের তথ্য একবার ভালোভাবে দেখে নিন।
+    </div>
+    <div class="step-box">
+      <span class="step-num">ধাপ ৪:</span>এরপর কোনো নোট লেখার থাকলে নিচের ঘরে লিখুন। সবশেষে <code>সবগুলো একসাথে বুকিং দিন</code> বাটনে ক্লিক করুন।
+    </div>
+    <div class="tip">
+      <strong>💡 বিশেষ সুবিধা:</strong>
+      <ul>
+        <li><b>স্মার্ট কপি:</b> দুই পেজেই বুকিং শেষে 'Copy' বাটন চাপলে <b>Parcel ID</b> বড় ও বোল্ড ফন্টে কপি হবে।</li>
+        <li><b>অটো নোট:</b> 'নোট' বক্সে একবার কোনো নোট লিখলে ব্রাউজার সেটি মনে রাখবে। পরে সাজেশন দেখাবে।</li>
+        <li><b>ফিডব্যাক:</b> এছাড়াও কোনো সমস্যা হলে আমাদের পেজের মেসেজে অথবা (<a href="https://forms.gle/F5mWAzFSVhM7nC838">এই গুগল ফর্মে</a>) অথবা গিটহাবে ফিডব্যাক জানাতে পারেন।</li>
+      </ul>
+    </div>
+<hr/>
+  <footer class="text-center text-gray-500 text-sm mt-8">
+    <div class="footer-links" style="margin-top:15px">
+      <a href="https://tools.sukkarshop.com" class="footer-link">🛠️ Tools</a> |
+      <a href="https://sukkarshop.com" class="footer-link">🏚️ Main Site</a> |
+      <a href="https://facebook.com/sukkar.shop" class="footer-link">📧 Contact</a> |
+      <a href="https://github.com/almahmudbd/steadfast-easy-booking/" class="footer-link">🔍 Github</a>
+    </div>
+    <p class="copyright">Steadfast Easy Booking Tool | Powered by sukkarshop.com</p>
+    <div class="muted" style="text-align:center;">Disclaimer: This is not an official Steadfast project.</div>
+  </footer>
+  <br />
+  </div>
+</body>
+</html>
