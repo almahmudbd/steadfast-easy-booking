@@ -1,0 +1,111 @@
+/* Steadfast Easy Booking - Admin Styles */
+
+.sfb-wrap {
+    max-width: 1200px;
+    margin: 20px 20px 20px 0;
+}
+
+.sfb-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.sfb-notice {
+    padding: 12px;
+    border-radius: 5px;
+    border-left: 4px solid;
+    margin: 15px 0;
+}
+
+.sfb-notice-info {
+    background: #e5f6fd;
+    border-color: #00a0d2;
+    color: #00546a;
+}
+
+.sfb-notice-success {
+    background: #d1fae5;
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.sfb-notice-error {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.sfb-form-group {
+    margin-bottom: 20px;
+}
+
+.sfb-form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.sfb-form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.sfb-status-pending {
+    color: #f59e0b;
+}
+
+.sfb-status-success {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.sfb-status-error {
+    color: #ef4444;
+}
+
+#sfb-order-table {
+    margin-top: 15px;
+}
+
+#sfb-order-table th {
+    background: #f9fafb;
+    font-weight: 600;
+}
+
+#sfb-bulk-input,
+#sfb-message-input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Hide tip button styles */
+.sfb-hide-tip-btn:hover {
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
+}
+
+/* Button danger style */
+.button-danger:hover {
+    background: #c62828 !important;
+    border-color: #c62828 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sfb-wrap {
+        margin: 10px;
+    }
+    
+    .sfb-card {
+        padding: 15px;
+    }
+}
