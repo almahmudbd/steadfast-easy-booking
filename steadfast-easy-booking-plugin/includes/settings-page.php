@@ -1,0 +1,162 @@
+<?php
+/**
+ * Settings Page for Steadfast Easy Booking
+ */
+
+if (!defined('ABSPATH'))
+    exit;
+
+$api_key = get_option('sfb_api_key', '');
+$secret_key = get_option('sfb_secret_key', '');
+?>
+
+<div class="wrap sfb-wrap">
+    <h1>🔐 Steadfast API Settings</h1>
+
+    <div class="sfb-card">
+        <div class="sfb-notice sfb-notice-info">
+            <p><strong>📌 API Key কোথায় পাবেন?</strong></p>
+            <p>Steadfast এর <a href="https://steadfast.com.bd/user/api" target="_blank">API Settings পেজ</a> থেকে আপনার
+                API Key এবং Secret Key সংগ্রহ করুন।</p>
+        </div>
+
+        <form id="sfb-settings-form">
+            <table class="form-table">
+                <tr>
+                    <th scope="row">
+                        <label for="sfb_api_key">API Key</label>
+                    </th>
+                    <td>
+                        <?php if (!empty($api_key)): ?>
+                            <div style="display:flex; gap:10px;">
+                                <input type="text" id="sfb_api_key" name="api_key" class="regular-text" value="**********"
+                                    readonly>
+                                <button type="button" class="button sfb-delete-key" data-target="sfb_api_key">মুছে
+                                    ফেলুন</button>
+                            </div>
+                        <?php else: ?>
+                            <input type="text" id="sfb_api_key" name="api_key" class="regular-text"
+                                placeholder="আপনার API Key">
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="sfb_secret_key">Secret Key</label>
+                    </th>
+                    <td>
+                        <?php if (!empty($secret_key)): ?>
+                            <div style="display:flex; gap:10px;">
+                                <input type="text" id="sfb_secret_key" name="secret_key" class="regular-text"
+                                    value="**********" readonly>
+                                <button type="button" class="button sfb-delete-key" data-target="sfb_secret_key">মুছে
+                                    ফেলুন</button>
+                            </div>
+                        <?php else: ?>
+                            <input type="text" id="sfb_secret_key" name="secret_key" class="regular-text"
+                                placeholder="আপনার Secret Key">
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="submit">
+                <button type="submit" class="button button-primary">সেভ করুন</button>
+                <button type="button" id="sfb-clear-settings" class="button">মুছে ফেলুন</button>
+                <button type="button" id="sfb-reset-plugin" class="button button-danger"
+                    style="background:#dc3232; color:white; border-color:#dc3232;">
+                    প্লাগিন রিসেট করুন
+                </button>
+            </p>
+        </form>
+
+        <div id="sfb-message" style="display:none; margin-top:15px;"></div>
+    </div>
+
+    <div class="sfb-card" style="margin-top:20px;">
+        <h3>⚙️ Quick Links</h3>
+        <p>
+            <a href="<?php echo admin_url('admin.php?page=steadfast-booking'); ?>" class="button">📦 Single Booking</a>
+            <a href="<?php echo admin_url('admin.php?page=steadfast-bulk-booking'); ?>" class="button">📚 Bulk
+                Booking</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    $('#sfb-settings-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: sfbAjax.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'sfb_save_settings',
+                nonce: sfbAjax.nonce,
+                api_key: $('#sfb_api_key').val(),
+                secret_key: $('#sfb_secret_key').val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#sfb-message').html('<div class="sfb-notice sfb-notice-success"><p>✅ সেটিংস সেভ হয়েছে!</p></div>').show();
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    $('#sfb-message').html('<div class="sfb-notice sfb-notice-error"><p>❌ ' + response.data + '</p></div>').show();
+                }
+            },
+            error: function () {
+                $('#sfb-message').html('<div class="sfb-notice sfb-notice-error"><p>❌ Error saving settings</p></div>').show();
+            }
+        });
+    });
+
+    // Individual key delete
+    $('.sfb-delete-key').on('click', function () {
+        var targetId = $(this).data('target');
+        if (confirm('Are you sure you want to delete this key?')) {
+            $('#' + targetId).val('').prop('readonly', false).focus();
+            $(this).hide();
+        }
+    });
+
+    $('#sfb-clear-settings').on('click', function () {
+        if (confirm('Are you sure you want to clear ALL API keys?')) {
+            $.ajax({
+                url: sfbAjax.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'sfb_reset_plugin',
+                    nonce: sfbAjax.nonce
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+    $('#sfb-reset-plugin').on('click', function () {
+        if (confirm('⚠️ সতর্কতা!\n\nআপনি কি নিশ্চিত যে আপনি প্লাগিনটি রিসেট করতে চান?\n\nএটি করলে:\n• API keys মুছে যাবে\n• টিপস আবার দেখাবে\n• সব ডেটা রিসেট হবে')) {
+            $.ajax({
+                url: sfbAjax.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'sfb_reset_plugin',
+                    nonce: sfbAjax.nonce
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#sfb-message').html('<div class="sfb-notice sfb-notice-success"><p>✅ প্লাগিন সফলভাবে রিসেট হয়েছে!</p><p>পৃষ্ঠাটি রিফ্রেশ হচ্ছে...</p></div>').show();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function () {
+                    $('#sfb-message').html('<div class="sfb-notice sfb-notice-error"><p>❌ Error resetting plugin</p></div>').show();
+                }
+            });
+        }
+    });
+});
+</script>

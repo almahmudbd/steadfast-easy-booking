@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Steadfast Easy Booking Tool</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="assets/favicon/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7f8;
+      --card: #fff;
+      --muted: #6b7280;
+      --accent: #10b981;
+      --danger: #ef4444;
+      --border: #e6eef6;
+      --text: #1f2937;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 14px;
+      background: var(--bg);
+      font-family: 'Poppins', system-ui, sans-serif;
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 940px;
+      margin: 8px auto;
+      background: var(--card);
+      padding: 14px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      box-sizing: border-box
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0
+    }
+
+    h2 {
+      font-size: 15px;
+      margin: 0 0 8px;
+      color: #374151
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #374151
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 76px;
+      resize: vertical
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: #374151;
+      border: 1px solid #d1d5db
+    }
+
+    .btn [disabled] {
+      opacity: 0.6;
+      cursor: not-allowed
+    }
+
+    .key-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 13px
+    }
+
+    .key-status.error {
+      background: #fff6f6;
+      border: 1px solid #fcdcdc;
+      color: var(--danger)
+    }
+
+    .key-status.success {
+      background: #f0fffa;
+      border: 1px solid #d1fae5;
+      color: var(--accent)
+    }
+
+    .key-status .text {
+      font-weight: 600;
+      font-size: 13px
+    }
+
+    .key-status .small-btn {
+      padding: 5px 8px;
+      font-size: 12px;
+      border-radius: 6px
+    }
+
+    .notice {
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      padding: 10px;
+      border-radius: 8px
+    }
+
+    .form-panel {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fbfdfe
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px
+    }
+
+    @media(max-width:720px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .full {
+      grid-column: 1/-1
+    }
+
+    .response {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--border)
+    }
+
+    .response h6 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 6px 0;
+      padding: 10px;
+      color: #000;
+      background: #f7f7f7;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .copyable {
+      flex: 1;
+      margin-right: 10px;
+      word-break: break-all;
+      font-weight: 700
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .small-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px
+    }
+
+    footer {
+      margin-top: 14px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .footer-link {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 5px
+    }
+
+    details summary {
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 10px;
+      outline: none;
+    }
+
+    pre {
+      background: #f9fafb;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+
+    /* Compact Settings Styles */
+    .compact-view {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #d1fae5;
+      background: #f0fffa;
+      padding: 1px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .compact-view h2 {
+      margin: 0;
+      font-size: 14px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .compact-view .actions {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BFD7N30L1X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-BFD7N30L1X');
+  </script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="settings-bar"
+      style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border: 1px solid var(--border); padding: 10px; border-radius: 10px; background: #fff;">
+      <h1 style="margin:0">Steadfast Easy Booking Tool</h1>
+    </div>
+    <section id="settingsSection">
+      <!-- Collapsed View -->
+      <div id="compactView" class="compact-view">
+        <h2>১. ✅ API কী লোড হয়েছে।</h2>
+        <div class="actions">
+          <button id="configureBtn" class="btn btn-secondary small-btn">⚙️ পরিবর্তন</button>
+        </div>
+      </div>
+
+      <!-- Expanded View -->
+      <div id="expandedView" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h2 style="margin:0">১. Steadfast API Key সেটআপ</h2>
+          <!-- Close button for expanded view when in edit mode -->
+          <button id="closeSettingsBtn" class="btn btn-secondary small-btn" style="display:none;">✕ Close</button>
+        </div>
+
+        <div id="keyStatus" class="key-status error" style="margin-bottom:10px; display:none;">
+          <div class="text">❌ API কী সেভ করা নেই। <a href="https://steadfast.com.bd/user/api" target="_blank">(সংগ্রহ
+              করুন)</a></div>
+        </div>
+
+        <div class="form-panel">
+          <div style="margin-bottom:8px">
+            <label for="apiKey">API Key</label>
+            <input id="apiKey" type="text" placeholder="আপনার API Key">
+          </div>
+          <div style="margin-bottom:8px">
+            <label for="secretKey">Secret Key</label>
+            <input id="secretKey" type="text" placeholder="আপনার Secret Key">
+          </div>
+          <div style="display:flex;gap:8px">
+            <button id="saveKeyBtn" class="btn btn-primary small-btn">সেভ</button>
+            <button id="clearKeyBtn" class="btn btn-secondary small-btn">মুছে ফেলুন</button>
+          </div>
+          <div class="small-note">⚠️ সতর্কতা: নিরাপত্তা বিবেচনায় কীগুলি আপনার ব্রাউজারের লোকাল স্টোরেজে সেভ করা হচ্ছে।
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:12px">
+      <h2>২. অর্ডার ডেটা প্রসেস করুন</h2>
+      <div class="notice" style="margin-bottom:10px">
+        <label for="messageInput" style="font-weight:600">অর্ডারের ডেটা মেসেজ (৩-৪ লাইনে)</label>
+        <textarea id="messageInput" placeholder="Customer Name (নাম)
+Address Example, Dhaka. (ঠিকানা)
+01312345678 (মোবাইল)
+500 (সিওডি টাকা)"></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button id="processBtn" class="btn btn-primary">মেসেজ প্রসেস করুন</button>
+          <button id="clearMsgBtn" class="btn btn-secondary">ক্লিয়ার</button>
+        </div>
+      </div>
+
+      <form id="orderForm" class="form-panel" onsubmit="return false">
+        <p id="parseErr" class="small-note" style="color:var(--danger);display:none">মেসেজ প্যাটার্ন ভুল।</p>
+        <div class="grid">
+          <div>
+            <label for="invoice">ইনভয়েস (Auto)</label>
+            <input id="invoice" type="text" readonly>
+          </div>
+          <div>
+            <label for="delivery">ডেলিভারি ধরন</label>
+            <select id="delivery">
+              <option value="0">0. হোম ডেলিভারি</option>
+              <option value="1">1. পয়েন্ট পিকআপ</option>
+            </select>
+          </div>
+
+          <div class="full">
+            <label for="name">ক্রেতার নাম</label>
+            <input id="name" type="text">
+          </div>
+
+          <div class="full">
+            <label for="addr">ক্রেতার ঠিকানা</label>
+            <input id="addr" type="text">
+          </div>
+
+          <div>
+            <label for="phone">ক্রেতার ফোন</label>
+            <input id="phone" type="text">
+          </div>
+
+          <div>
+            <label for="cod">COD টাকার পরিমাণ</label>
+            <input id="cod" type="number" min="0">
+          </div>
+
+          <div>
+            <label for="item">পণ্যের বিবরণ (optional)</label>
+            <input id="item" type="text">
+          </div>
+
+          <div>
+            <label for="note">নোট (Optional)</label>
+            <input id="note" type="text" name="common_note" autocomplete="on">
+          </div>
+          <div class="full" style="display:flex;justify-content:flex-end">
+            <button id="confirmBtn" class="btn btn-primary" type="button" style="width:100%" disabled>বুকিং
+              কনফার্ম</button>
+          </div>
+        </div>
+      </form>
+      <div class="response" id="response">
+        <div class="muted">এখানে Steadfast থেকে আসা রেসপন্স দেখা যাবে...</div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="text-center text-gray-500 text-sm mt-8">
+    <div class="footer-links" style="margin-top:15px">
+      <a style="font-size: 1.1em;" href="bulk.html" class="footer-link"><b>📦 Bulk Entry</b></a> |
+      <a style="font-size: 1.1em;" href="ai.html" class="footer-link"><b>🆕 Ai Bulk Entry</b></a> |
+      <a href="https://tools.sukkarshop.com" class="footer-link">🛠️ Tools </a> |
+      <a href="https://sukkarshop.com" class="footer-link">🏠 Homepage</a> |
+      <a href="help.html" class="footer-link"> How to use? </a>
+    </div>
+    <p class="copyright">Steadfast Easy Booking Tool v1.78 | Powered by sukkarshop.com</p>
+    <div class="muted" style="text-align:center;">Disclaimer: This is not an official Steadfast project.</div>
+  </footer>
+  <br />
+
+  <script>
+    const LS_KEY = 'steadfastApiKey';
+    const LS_SECRET = 'steadfastSecretKey';
+
+    const keyStatus = document.getElementById('keyStatus');
+    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+    // const toggleKeyBtn = ... removed
+    const apiKeyInput = document.getElementById('apiKey');
+    const secretKeyInput = document.getElementById('secretKey');
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+    const clearKeyBtn = document.getElementById('clearKeyBtn');
+
+    const processBtn = document.getElementById('processBtn');
+    const clearMsgBtn = document.getElementById('clearMsgBtn');
+    const messageInput = document.getElementById('messageInput');
+    const parseErr = document.getElementById('parseErr');
+
+    const invoiceInput = document.getElementById('invoice');
+    const nameInput = document.getElementById('name');
+    const addrInput = document.getElementById('addr');
+    const phoneInput = document.getElementById('phone');
+    const codInput = document.getElementById('cod');
+    const itemInput = document.getElementById('item');
+    const noteInput = document.getElementById('note');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const responseDiv = document.getElementById('response');
+
+    function cleanNumberString(str) {
+      if (!str) return '';
+      let cleaned = String(str).replace(/[^\d০-৯]/g, '');
+      const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      const en = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      for (let i = 0; i < bn.length; i++) cleaned = cleaned.replace(new RegExp(bn[i], 'g'), en[i]);
+      return cleaned;
+    }
+
+    function parseMessage(msg) {
+      const lines = msg.split('\n').map(l => l.trim()).filter(Boolean);
+      if (lines.length < 3) return null;
+      const phoneRx = /^01\d{9}$/;
+      const name = lines[0];
+      const c1 = cleanNumberString(lines[1] || '');
+      const c2 = cleanNumberString(lines[2] || '');
+      let phone = null, addr = null;
+      if (phoneRx.test(c1)) { phone = c1; addr = lines[2]; }
+      else if (phoneRx.test(c2)) { phone = c2; addr = lines[1]; }
+      else {
+        for (let l of lines) {
+          let p = cleanNumberString(l);
+          if (phoneRx.test(p)) { phone = p; break; }
+        }
+        addr = lines[1];
+      }
+      let cod = 0;
+      for (let l of lines) {
+        if (l.toLowerCase().includes('tk') || l.includes('টাকা') || l.toLowerCase().includes('cod')) {
+          cod = parseFloat(cleanNumberString(l)) || 0; break;
+        }
+      }
+      if (cod === 0 && lines[3]) cod = parseFloat(cleanNumberString(lines[3])) || 0;
+      return { name, addr, phone, cod };
+    }
+
+    function updateConfirmState() {
+      const hasKeys = !!(localStorage.getItem(LS_KEY) && localStorage.getItem(LS_SECRET));
+      const invoiceExists = invoiceInput && invoiceInput.value && invoiceInput.value.trim().length > 0;
+      confirmBtn.disabled = !(hasKeys && invoiceExists);
+    }
+
+    function setKeysVisible(loaded) {
+      if (loaded) {
+        // Connected State: Show Compact, Hide Expanded
+        document.getElementById('compactView').style.display = 'flex';
+        document.getElementById('expandedView').style.display = 'none';
+
+        // Prepare expanded view for editing (if user clicks Configure later)
+        keyStatus.style.display = 'none'; // Hide error message
+        closeSettingsBtn.style.display = 'block'; // Show close button
+
+        // Mask keys
+        apiKeyInput.value = '**********';
+        secretKeyInput.value = '**********';
+        apiKeyInput.readOnly = true;
+        secretKeyInput.readOnly = true;
+      } else {
+        // Disconnected State: Hide Compact, Show Expanded
+        document.getElementById('compactView').style.display = 'none';
+        document.getElementById('expandedView').style.display = 'block';
+
+        keyStatus.style.display = 'block'; // Show error message
+        closeSettingsBtn.style.display = 'none'; // Hide close button (must save to close)
+
+        apiKeyInput.value = '';
+        secretKeyInput.value = '';
+        apiKeyInput.readOnly = false;
+        secretKeyInput.readOnly = false;
+      }
+      updateConfirmState();
+    }
+
+    function loadKeys() { setKeysVisible(!!(localStorage.getItem(LS_KEY) && localStorage.getItem(LS_SECRET))); }
+
+    // Configure Button: Opens the editor
+    document.getElementById('configureBtn').addEventListener('click', () => {
+      document.getElementById('compactView').style.display = 'none';
+      document.getElementById('expandedView').style.display = 'block';
+    });
+
+    // Close Button: Cancels editing and goes back to compact (if keys exist)
+    closeSettingsBtn.addEventListener('click', () => {
+      if (localStorage.getItem(LS_KEY)) {
+        loadKeys(); // Revert to compact view
+      }
+    });
+
+    saveKeyBtn.addEventListener('click', () => {
+      const k = apiKeyInput.value.trim();
+      const s = secretKeyInput.value.trim();
+      if (k && s) {
+        localStorage.setItem(LS_KEY, k);
+        localStorage.setItem(LS_SECRET, s);
+        loadKeys(); // Will switch to compact view
+      } else { alert('API কী ও Secret কী প্রদান করুন।'); }
+    });
+
+    clearKeyBtn.addEventListener('click', () => {
+      localStorage.removeItem(LS_KEY);
+      localStorage.removeItem(LS_SECRET);
+      loadKeys();
+    });
+
+    processBtn.addEventListener('click', () => {
+      const parsed = parseMessage(messageInput.value);
+      if (parsed) {
+        parseErr.style.display = 'none';
+        invoiceInput.value = 'INV-' + Date.now().toString().slice(-6);
+        nameInput.value = parsed.name;
+        addrInput.value = parsed.addr;
+        phoneInput.value = parsed.phone;
+        codInput.value = parsed.cod;
+        responseDiv.innerHTML = '';
+        updateConfirmState();
+      } else {
+        parseErr.style.display = 'block';
+        invoiceInput.value = ''; nameInput.value = ''; addrInput.value = ''; phoneInput.value = ''; codInput.value = '';
+        confirmBtn.disabled = true;
+        responseDiv.innerHTML = '<div style="color:var(--danger)">ইনপুট ফরম্যাট ভুল।</div>';
+      }
+    });
+
+    clearMsgBtn.addEventListener('click', () => {
+      messageInput.value = ''; invoiceInput.value = ''; nameInput.value = ''; addrInput.value = ''; phoneInput.value = ''; codInput.value = '';
+      confirmBtn.disabled = true; responseDiv.innerHTML = ''; messageInput.focus();
+    });
+
+    // কপি করার জন্য স্পেশাল ফাংশন যা ১৬ সাইজ নিশ্চিত করবে
+    function copyToClipboardLarge(text) {
+      const html = `<span style="font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: bold; color: #000; background: #f7f7f7;">${text}</span>`;
+      const type = "text/html";
+      const blob = new Blob([html], { type });
+      const data = [new ClipboardItem({ [type]: blob, ["text/plain"]: new Blob([text], { type: "text/plain" }) })];
+      navigator.clipboard.write(data).catch(err => {
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+      });
+    }
+
+    confirmBtn.addEventListener('click', async () => {
+      const k = localStorage.getItem(LS_KEY);
+      const s = localStorage.getItem(LS_SECRET);
+      if (!(k && s)) {
+        responseDiv.innerHTML = '<div style="color:var(--danger)">API কী অনুপস্থিত।</div>';
+        return;
+      }
+      const payload = {
+        invoice: invoiceInput.value,
+        recipient_name: nameInput.value,
+        recipient_address: addrInput.value,
+        recipient_phone: phoneInput.value,
+        cod_amount: Number(codInput.value) || 0,
+        note: noteInput.value,
+        delivery_type: Number(document.getElementById('delivery').value)
+      };
+      responseDiv.innerHTML = '<div class="muted">বুকিং প্রক্রিয়া চলছে...</div>';
+      try {
+        const STEADFAST_URL = 'https://portal.packzy.com/api/v1/create_order';
+        const res = await fetch(STEADFAST_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Api-Key': k,
+            'Secret-Key': s
+          },
+          body: JSON.stringify(payload)
+        });
+        const j = await res.json();
+        if (j && j.status === 200) {
+          const cid = j.consignment?.consignment_id || 'N/A';
+          const track = j.consignment?.tracking_code || '';
+          responseDiv.innerHTML = `
+            <div class="key-status success" style="margin-bottom:10px;"><div class="text">✅ Consignment created successfully.</div></div>
+            <h6><span class='copyable'>Parcel Id : #${cid}</span><button class='btn btn-secondary' id="copyBtnLarge">Copy</button></h6>
+            <h6><span class='copyable'>Tracking: ${track}</span><a class='btn btn-secondary' target='_blank' href='https://steadfast.com.bd/t/${track}'>View</a></h6>
+            <details>
+              <summary>Raw response data (Click to expand)</summary>
+              <pre style='font-size:12px; white-space: pre-wrap;'>${JSON.stringify(j, null, 2)}</pre>
+            </details>`;
+
+          document.getElementById('copyBtnLarge').onclick = () => copyToClipboardLarge(`Parcel Id : #${cid}`);
+        } else {
+          responseDiv.innerHTML = `<div style="color:var(--danger)">❌ বুকিং ব্যর্থ: ${j.message || 'Unknown error'}</div>
+          <details><summary>Error Details</summary><pre style='font-size:11px'>${JSON.stringify(j, null, 2)}</pre></details>`;
+        }
+      } catch (err) {
+        responseDiv.innerHTML = `<div style="color:var(--danger)">❌ নেটওয়ার্ক ত্রুটি: ${err.message || err}</div>`;
+      }
+    });
+
+    (function init() { loadKeys(); })();
+  </script>
+</body>
+
+</html>
